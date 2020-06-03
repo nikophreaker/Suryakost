@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1076102785010",
+    "firebase_url": "https://suryakost-c2956.firebaseio.com",
+    "project_id": "suryakost-c2956",
+    "storage_bucket": "suryakost-c2956.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076102785010:android:7e08c206b1149c71782d6b",
+        "android_client_info": {
+          "package_name": "com.nikxphreaker.suryakost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076102785010-9ovikdq2ts2qsv88rs6dme7i8ibi2eul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nikxphreaker.suryakost",
+            "certificate_hash": "d442abbc13923503d92b8a648886c19c1e53cefd"
+          }
+        },
+        {
+          "client_id": "1076102785010-4sujujfj3iash67ce0vu1p3cfr3ae2k6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs67ECmzz5-p7qTPQfq7azi8N97R2PUQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076102785010-4sujujfj3iash67ce0vu1p3cfr3ae2k6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

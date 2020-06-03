@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AboutActivity">
+    <include
+        layout="@layout/toolbar_head"
+        android:id="@+id/toolbar"/>
+    <LinearLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar"
+        android:background="@color/logback"
+        android:gravity="center_horizontal"
+        android:padding="46dp"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/head"
+        android:background="#ffff"
+        android:padding="26dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bd"
+            android:textColor="@color/logback"
+            android:textSize="24sp"
+            android:text="Tentang Suryakost"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/md"
+            android:textSize="16sp"
+            android:text="CV Suryakost merupakan perusahaan yang bergerak dibidang jasa sewa kamar yang dimulai pada tahun 2015, dengan lokasi usaha dibeberapa tempat seperti jakarta barat, jakarta utara, tanggerang selatan dan lainnya."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/md"
+            android:layout_marginTop="10dp"
+            android:textSize="16sp"
+            android:text="Tempat perusahaan CV Suryakost berada di Jalan Stasiun Cicayur Rt.02 Rw.06 Kel.Cisauk Kabupaten Serpong"/>
+    </LinearLayout>
+
+</RelativeLayout>

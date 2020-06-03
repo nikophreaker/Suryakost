@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/navhome"/>
+<!--    <item-->
+<!--        android:id="@+id/nav_notif"-->
+<!--        android:icon="@drawable/ic_bell"-->
+<!--        android:title="@string/navnotif"/>-->
+<!--    <item-->
+<!--        android:id="@+id/nav_message"-->
+<!--        android:icon="@drawable/ic_chat"-->
+<!--        android:title="@string/navmessage"/>-->
+    <item
+        android:id="@+id/nav_payment"
+        android:icon="@drawable/ic_monetization_on_black_24dp"
+        android:title="@string/payment"/>
+    <item
+        android:id="@+id/nav_profil"
+        android:icon="@drawable/ic_user"
+        android:title="@string/navaccount"/>
+</menu>
