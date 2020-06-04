@@ -5,38 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab2"
+        android:layout_above="@id/tambah"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Kamar terisi"
+        android:tooltipText="Lihat Kamar terisi"
         android:src="@drawable/ic_airline_seat_individual_suite_black_24dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:layout_margin="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="35dp"
         app:fabSize="mini" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab1"
+    <TextView
+        android:id="@+id/fab22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/fab2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="180dp"
+        android:layout_marginRight="15dp"
+        android:text="Tambah Kamar"
+        android:textColor="#ffff"
+        android:textSize="18sp"
+        android:elevation="7dp"
+        android:background="@color/colorPrimaryDark"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_above="@id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambah Kamar"
+        android:tooltipText="Tambah Kamar"
         android:src="@drawable/ic_add_to_photos_black_24dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:layout_margin="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35dp"
         app:fabSize="mini" />
+    <TextView
+        android:id="@+id/fab11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/fab1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="115dp"
+        android:layout_marginRight="15dp"
+        android:text="Kamar terisi"
+        android:textColor="#ffff"
+        android:textSize="18sp"
+        android:elevation="7dp"
+        android:background="@color/colorPrimaryDark"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/tambah"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_black_24dp"
         android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="25dp"
         app:fabSize="normal" />
-    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

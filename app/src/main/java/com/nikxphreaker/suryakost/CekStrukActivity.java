@@ -78,7 +78,7 @@ public class CekStrukActivity extends AppCompatActivity {
         tgl_depan = intent.getStringExtra("tgl_depan");
         tgl = intent.getStringExtra("tgl");
         key_pemb = intent.getStringExtra("key");
-        key_kamaris = intent.getStringExtra("kamarisi_key");
+        //key_kamaris = intent.getStringExtra("kamarisi_key");
         setData(nama,nomor,lokasi,fasilitas,luas,harga,struk,lamas,tgl_depan);
 
         id_user = findViewById(R.id.id_user);
@@ -227,7 +227,7 @@ public class CekStrukActivity extends AppCompatActivity {
         String TempAwal = tgl.trim();
         String TempSisa = lama.getText().toString().trim();
         @SuppressWarnings("VisibleForTests")
-        String MasukUploadId = key_kamaris;
+        String MasukUploadId = isi_reference.push().getKey();
         KamarIsi kamarIsi = new KamarIsi(TempKamar, TempUser, TempPemb, TempAwal, TempSisa);
         isi_reference.child(MasukUploadId).setValue(kamarIsi);
     }

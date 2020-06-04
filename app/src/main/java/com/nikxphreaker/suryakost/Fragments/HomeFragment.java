@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     Float translationY = 100f;
     OvershootInterpolator interpolator = new OvershootInterpolator();
     Boolean isMenuOpen = false;
-    TextView username,bujank;
+    TextView username,bujank,fab11,fab22;
     CircleImageView profile_image;
     FirebaseUser firebaseuser;
     DatabaseReference reference,pembayaran_ref,isi_reference;
@@ -67,41 +67,16 @@ public class HomeFragment extends Fragment {
         fab = v.findViewById(R.id.tambah);
         fab1 = v.findViewById(R.id.fab1);
         fab2 = v.findViewById(R.id.fab2);
+        fab11 = v.findViewById(R.id.fab11);
+        fab22 = v.findViewById(R.id.fab22);
+        fab11.setVisibility(View.INVISIBLE);
+        fab22.setVisibility(View.INVISIBLE);
         fab.hide();
         fab1.hide();
         fab2.hide();
-        fab1.setAlpha(0f);
-        fab2.setAlpha(0f);
-
-        fab1.setTranslationY(translationY);
-        fab2.setTranslationY(translationY);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isMenuOpen) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            }
-        });
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), TambahKamarActivity.class));
-            }
-        });
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         sewakamar = v.findViewById(R.id.list_kamar);
         sewakamar.setHasFixedSize(true);
         sewakamar.setLayoutManager(new LinearLayoutManager(getContext()));
-
         firebaseuser = FirebaseAuth.getInstance().getCurrentUser();
         pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran");
         isi_reference = FirebaseDatabase.getInstance().getReference("Kamar_terisi");
@@ -125,12 +100,44 @@ public class HomeFragment extends Fragment {
                     fab.show();
                     fab1.show();
                     fab2.show();
+                    fab1.setAlpha(0f);
+                    fab2.setAlpha(0f);
+                    fab1.setTranslationY(translationY);
+                    fab2.setTranslationY(translationY);
+
                 }
                 if(user.getLevel().equals("admin")){
                     fab.show();
                     fab1.show();
                     fab2.show();
+                    fab1.setAlpha(0f);
+                    fab2.setAlpha(0f);
+                    fab1.setTranslationY(translationY);
+                    fab2.setTranslationY(translationY);
                 }
+
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (isMenuOpen) {
+                            closeMenu();
+                        } else {
+                            openMenu();
+                        }
+                    }
+                });
+                fab1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getActivity(), TambahKamarActivity.class));
+                    }
+                });
+                fab2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
 //                pembayaran_ref.addValueEventListener(new ValueEventListener() {
 //                    @Override
 //                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -206,6 +213,8 @@ public class HomeFragment extends Fragment {
         fab.animate().setInterpolator(interpolator).rotation(45f).setDuration(300).start();
         fab1.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         fab2.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab11.setVisibility(View.VISIBLE);
+        fab22.setVisibility(View.VISIBLE);
     }
 
     private void closeMenu() {
@@ -213,6 +222,8 @@ public class HomeFragment extends Fragment {
         fab.animate().setInterpolator(interpolator).rotation(0f).setDuration(300).start();
         fab1.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
         fab2.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab11.setVisibility(View.INVISIBLE);
+        fab22.setVisibility(View.INVISIBLE);
     }
 
 //    public void onClick(View view) {

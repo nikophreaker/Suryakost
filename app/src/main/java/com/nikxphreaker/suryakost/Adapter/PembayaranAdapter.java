@@ -116,7 +116,7 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                         });
 
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            final KamarIsi kamarIsi = listKamarIsi.get(position);
+                            //final KamarIsi kamarIsi = listKamarIsi.get(position);
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(mContext, CekStrukActivity.class);
@@ -133,7 +133,7 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                                 intent.putExtra("tgl_depan", pembayaran.getBulan_depan());
                                 intent.putExtra("id_user", pembayaran.getId_user());
                                 intent.putExtra("key", pembayaran.getKey());
-                                intent.putExtra("kamarisi_key", kamarIsi.getKey());
+                               // intent.putExtra("kamarisi_key", kamarIsi.getKey());
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 mContext.startActivity(intent);
                             }
