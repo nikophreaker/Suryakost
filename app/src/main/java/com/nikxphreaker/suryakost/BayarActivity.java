@@ -111,7 +111,7 @@ public class BayarActivity extends AppCompatActivity {
                                                                 }
                                                             });
                                                         } else if (pembayaran.getStatus().equals("Sudah Bayar")){
-                                                            startActivity(new Intent(BayarActivity.this,MainActivity.class));
+                                                            startActivity(new Intent(BayarActivity.this,SudahBayarActivity.class));
                                                         }
                                                         else {
                                                             bayarkamar.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_airline_seat_individual_suite_black_24dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_margin="25dp"
+        app:fabSize="mini" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_to_photos_black_24dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_margin="25dp"
+        app:fabSize="mini" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/tambah"
         android:layout_width="wrap_content"
@@ -12,9 +35,8 @@
         android:src="@drawable/ic_add_black_24dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:layout_margin="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         app:fabSize="normal" />
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

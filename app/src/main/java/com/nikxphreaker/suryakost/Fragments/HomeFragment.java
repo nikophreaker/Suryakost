@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,10 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
-    FloatingActionButton fab;
+    FloatingActionButton fab, fab1, fab2;
+    Float translationY = 100f;
+    OvershootInterpolator interpolator = new OvershootInterpolator();
+    Boolean isMenuOpen = false;
     TextView username,bujank;
     CircleImageView profile_image;
     FirebaseUser firebaseuser;
@@ -61,7 +65,38 @@ public class HomeFragment extends Fragment {
         bujank = v.findViewById(R.id.bujank);
         profile_image = v.findViewById(R.id.profile_image);
         fab = v.findViewById(R.id.tambah);
+        fab1 = v.findViewById(R.id.fab1);
+        fab2 = v.findViewById(R.id.fab2);
         fab.hide();
+        fab1.hide();
+        fab2.hide();
+        fab1.setAlpha(0f);
+        fab2.setAlpha(0f);
+
+        fab1.setTranslationY(translationY);
+        fab2.setTranslationY(translationY);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isMenuOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+        });
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), TambahKamarActivity.class));
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         sewakamar = v.findViewById(R.id.list_kamar);
         sewakamar.setHasFixedSize(true);
@@ -88,9 +123,13 @@ public class HomeFragment extends Fragment {
                 }
                 if(user.getLevel().equals("admin")){
                     fab.show();
+                    fab1.show();
+                    fab2.show();
                 }
                 if(user.getLevel().equals("admin")){
                     fab.show();
+                    fab1.show();
+                    fab2.show();
                 }
 //                pembayaran_ref.addValueEventListener(new ValueEventListener() {
 //                    @Override
@@ -152,15 +191,50 @@ public class HomeFragment extends Fragment {
         });
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        startActivity(new Intent(getActivity(), TambahKamarActivity.class));
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                        startActivity(new Intent(getActivity(), TambahKamarActivity.class));
+//            }
+//        });
         progressDialog.dismiss();
         return v;
     }
+
+    private void openMenu() {
+        isMenuOpen = !isMenuOpen;
+        fab.animate().setInterpolator(interpolator).rotation(45f).setDuration(300).start();
+        fab1.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        fab2.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+    }
+
+    private void closeMenu() {
+        isMenuOpen = !isMenuOpen;
+        fab.animate().setInterpolator(interpolator).rotation(0f).setDuration(300).start();
+        fab1.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        fab2.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+    }
+
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.tambah:
+//                if (isMenuOpen) {
+//                    closeMenu();
+//                } else {
+//                    openMenu();
+//                }
+//                break;
+//            case R.id.fab1:
+//                if (isMenuOpen) {
+//                    closeMenu();
+//                } else {
+//                    openMenu();
+//                }
+//                break;
+//            case R.id.fab2:
+//                break;
+//        }
+//    }
 
     private void showKamar() {
         list = new ArrayList<>();
