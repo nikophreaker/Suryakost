@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -260,16 +262,29 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         final Pembayaran pembayaran = listPembayaran.get(position);
-                        final KamarIsi kamarIsi = listKamarIsi.get(position);
                         DatabaseReference myRef = database.getReference().child("Pembayaran").child(pembayaran.getKey());
-                        final DatabaseReference myRef2 = database.getReference().child("Kamar_terisi").child(kamarIsi.getKey());
                         myRef.removeValue();
-                        myRef2.child("id_pembayaran").setValue("");
-                        myRef2.child("id_user").setValue("");
-                        myRef2.child("sisa_waktu").setValue("");
-                        myRef2.child("tgl_masuk").setValue("");
+                        DatabaseReference cekKamarIsi = database.getInstance().getReference();
+                        cekKamarIsi.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.hasChild("Kamar_terisi")){
+                                    final KamarIsi kamarIsi = listKamarIsi.get(position);
+                                    final DatabaseReference myRef2 = database.getReference().child("Kamar_terisi").child(kamarIsi.getKey());
+                                    myRef2.removeValue();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+//                        myRef2.child("id_pembayaran").setValue("");
+//                        myRef2.child("id_user").setValue("");
+//                        myRef2.child("sisa_waktu").setValue("");
+//                        myRef2.child("tgl_masuk").setValue("");
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

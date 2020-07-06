@@ -217,13 +217,27 @@ public class KamarListAdapter extends RecyclerView.Adapter<KamarListAdapter.View
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         final Kamar kamar = listKamar.get(position);
-                        final KamarIsi kamarIsi = listKamarIsi.get(position);
                         DatabaseReference myRef = database.getReference().child("Kamar").child(kamar.getKey());
-                        DatabaseReference myRef2 = database.getReference().child("Kamar_terisi").child(kamarIsi.getKey());
                         myRef.removeValue();
-                        myRef2.removeValue();
+                        DatabaseReference cekKamarIsi = database.getInstance().getReference();
+                        cekKamarIsi.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.hasChild("Kamar_terisi")){
+                                    final KamarIsi kamarIsi = listKamarIsi.get(position);
+                                    DatabaseReference myRef2 = database.getReference().child("Kamar_terisi").child(kamarIsi.getKey());
+                                    myRef2.removeValue();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
