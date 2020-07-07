@@ -7,25 +7,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.nikxphreaker.suryakost.BayarActivity;
 import com.nikxphreaker.suryakost.CekStrukActivity;
 import com.nikxphreaker.suryakost.Model.Kamar;
 import com.nikxphreaker.suryakost.Model.KamarIsi;
@@ -39,27 +35,27 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.ViewHolder> {
+public class TagihanAdapter extends RecyclerView.Adapter<TagihanAdapter.ViewHolder> {
     private Context mContext;
     private List<Pembayaran> listPembayaran;
     private List<KamarIsi> listKamarIsi;
     DatabaseReference reference,dreference,dreference2;
     String username;
 
-    public PembayaranAdapter(Context mContext, List<Pembayaran> list, List<KamarIsi> list2) {
+    public TagihanAdapter(Context mContext, List<Pembayaran> list, List<KamarIsi> list2) {
         this.mContext = mContext;
         this.listPembayaran = list;
         this.listKamarIsi = list2;
     }
     @NonNull
     @Override
-    public PembayaranAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TagihanAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_tagihan, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PembayaranAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final TagihanAdapter.ViewHolder holder, final int position) {
         final Pembayaran pembayaran = listPembayaran.get(position);
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {
@@ -137,7 +133,7 @@ public class PembayaranAdapter extends RecyclerView.Adapter<PembayaranAdapter.Vi
                                 intent.putExtra("tgl_depan", pembayaran.getBulan_depan());
                                 intent.putExtra("id_user", pembayaran.getId_user());
                                 intent.putExtra("key", pembayaran.getKey());
-                                // intent.putExtra("kamarisi_key", kamarIsi.getKey());
+                               // intent.putExtra("kamarisi_key", kamarIsi.getKey());
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 mContext.startActivity(intent);
                             }

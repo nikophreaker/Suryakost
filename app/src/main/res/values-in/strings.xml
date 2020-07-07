@@ -112,6 +112,7 @@
     <string name="re_type_password_baru">Re-type Password Baru</string>
     <string name="kontak_admin">Kontak Admin</string>
     <string name="tentang_suryakost">Tentang Suryakost</string>
+    <string name="tagih_pembayaran">Tagih Pembayaran</string>
     <string-array name="wilayah_array">
         <item>Jakarta Utara</item>
         <item>Jakarta Barat</item>

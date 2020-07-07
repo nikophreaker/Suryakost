@@ -92,7 +92,7 @@ public class TagihanFragment extends Fragment {
                                         fragmentTransaction.commit();
                                         progressDialog.dismiss();
                                     } else if (pembayaran.getStatus().equals("Belum Bayar")) {
-                                    //startActivity(new Intent(getActivity(), BayarActivity.class));
+                                        startActivity(new Intent(getActivity(), BayarActivity.class));
                                     }
                                 }
                             }

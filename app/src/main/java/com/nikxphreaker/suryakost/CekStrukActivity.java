@@ -48,7 +48,7 @@ public class CekStrukActivity extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     SimpleDateFormat dateFormatter;
     TextView dateResult,penyewa,id_user,id_kamare,hargaKamar,lama,tgls;
-    Button bt_datePicker,konfirmasi;
+    Button tagih,konfirmasi;
     Date date;
     String key_pemb,lamas,tgl_depan,id_kamar,id_users,key_kamaris,tgl;
     FirebaseUser firebaseuser;
@@ -82,9 +82,31 @@ public class CekStrukActivity extends AppCompatActivity {
         setData(nama,nomor,lokasi,fasilitas,luas,harga,struk,lamas,tgl_depan);
 
         id_user = findViewById(R.id.id_user);
+        tagih = findViewById(R.id.tagih);
         firebaseuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseuser.getUid());
         konfirmasi = findViewById(R.id.konfirmasikamar);
+        pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran").child(key_pemb);
+        pembayaran_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (getApplicationContext() == null) {
+                    return;
+                }
+                Pembayaran pembayaran = dataSnapshot.getValue(Pembayaran.class);
+                if(pembayaran.getStatus().equals("Sudah Bayar")){
+                    konfirmasi.setVisibility(View.INVISIBLE);
+                    tagih.setVisibility(View.VISIBLE);
+                }else
+                {konfirmasi.setVisibility(View.VISIBLE);
+                    tagih.setVisibility(View.INVISIBLE);}
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         konfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +120,14 @@ public class CekStrukActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                startActivity(new Intent(CekStrukActivity.this, MainActivity.class));
+            }
+        });
+        tagih.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran");
+                pembayaran_ref.child(key_pemb).child("status").setValue("Belum Bayar");
                 startActivity(new Intent(CekStrukActivity.this, MainActivity.class));
             }
         });
@@ -200,6 +230,7 @@ public class CekStrukActivity extends AppCompatActivity {
 
     public void konfirmasi_bayar() throws ParseException {
         pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran");
+        dreference = FirebaseDatabase.getInstance().getReference("Kamar_terisi");
         pembayaran_ref.child(key_pemb).child("status").setValue("Sudah Bayar");
         int subtract = parseInt(lamas);
         int result = subtract - 1;
@@ -210,7 +241,35 @@ public class CekStrukActivity extends AppCompatActivity {
         String TempBulan = Long.toString(cal.getTimeInMillis());
         pembayaran_ref.child(key_pemb).child("bulan_depan").setValue(TempBulan.trim());
 //        pembayaran_ref.child(key_pemb).child("tgl_pembayaran").setValue(tgl_depan.trim());
+        if(result == 0){
+            final DatabaseReference myRef1 = pembayaran_ref.child(key_pemb);
+            final DatabaseReference myRef2 = dreference.child(id_kamar);
+            myRef1.removeValue();
+            myRef2.removeValue();
+        }
+        else{
         pembayaran_ref.child(key_pemb).child("sisa_bayar").setValue(Integer.toString(result));
+        pembayaran_ref.child(key_pemb).child("struk").setValue("");
+        }
+//        DatabaseReference cekKamarIsi = FirebaseDatabase.getInstance().getReference("Kamar_terisi");
+//        cekKamarIsi.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+//                    for(DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+//                        if (!dataSnapshot2.hasChild(id_kamar)) {
+//
+//                        } else {
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     public void masukin_kekamar() throws ParseException {

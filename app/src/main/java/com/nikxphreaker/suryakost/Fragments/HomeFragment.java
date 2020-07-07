@@ -66,14 +66,14 @@ public class HomeFragment extends Fragment {
         profile_image = v.findViewById(R.id.profile_image);
         fab = v.findViewById(R.id.tambah);
         fab1 = v.findViewById(R.id.fab1);
-        fab2 = v.findViewById(R.id.fab2);
-        fab11 = v.findViewById(R.id.fab11);
+        //fab2 = v.findViewById(R.id.fab2);
+        //fab11 = v.findViewById(R.id.fab11);
         fab22 = v.findViewById(R.id.fab22);
-        fab11.setVisibility(View.INVISIBLE);
+        //fab11.setVisibility(View.INVISIBLE);
         fab22.setVisibility(View.INVISIBLE);
         fab.hide();
         fab1.hide();
-        fab2.hide();
+        //fab2.hide();
         sewakamar = v.findViewById(R.id.list_kamar);
         sewakamar.setHasFixedSize(true);
         sewakamar.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -99,21 +99,21 @@ public class HomeFragment extends Fragment {
                 if(user.getLevel().equals("admin")){
                     fab.show();
                     fab1.show();
-                    fab2.show();
+                   // fab2.show();
                     fab1.setAlpha(0f);
-                    fab2.setAlpha(0f);
+                    //fab2.setAlpha(0f);
                     fab1.setTranslationY(translationY);
-                    fab2.setTranslationY(translationY);
+                   // fab2.setTranslationY(translationY);
 
                 }
                 if(user.getLevel().equals("admin")){
                     fab.show();
                     fab1.show();
-                    fab2.show();
+                   // fab2.show();
                     fab1.setAlpha(0f);
-                    fab2.setAlpha(0f);
+                   // fab2.setAlpha(0f);
                     fab1.setTranslationY(translationY);
-                    fab2.setTranslationY(translationY);
+                   // fab2.setTranslationY(translationY);
                 }
 
                 fab.setOnClickListener(new View.OnClickListener() {
@@ -132,12 +132,12 @@ public class HomeFragment extends Fragment {
                         startActivity(new Intent(getActivity(), TambahKamarActivity.class));
                     }
                 });
-                fab2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+//                fab2.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
 //                pembayaran_ref.addValueEventListener(new ValueEventListener() {
 //                    @Override
 //                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -212,8 +212,8 @@ public class HomeFragment extends Fragment {
         isMenuOpen = !isMenuOpen;
         fab.animate().setInterpolator(interpolator).rotation(45f).setDuration(300).start();
         fab1.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-        fab2.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-        fab11.setVisibility(View.VISIBLE);
+        //fab2.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        //fab11.setVisibility(View.VISIBLE);
         fab22.setVisibility(View.VISIBLE);
     }
 
@@ -221,8 +221,8 @@ public class HomeFragment extends Fragment {
         isMenuOpen = !isMenuOpen;
         fab.animate().setInterpolator(interpolator).rotation(0f).setDuration(300).start();
         fab1.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
-        fab2.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
-        fab11.setVisibility(View.INVISIBLE);
+        //fab2.animate().translationY(translationY).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        //fab11.setVisibility(View.INVISIBLE);
         fab22.setVisibility(View.INVISIBLE);
     }
 
@@ -262,12 +262,22 @@ public class HomeFragment extends Fragment {
                         isi_reference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    KamarIsi kamarIsi = snapshot.getValue(KamarIsi.class);
+                                for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    final KamarIsi kamarIsi = snapshot.getValue(KamarIsi.class);
                                     kamarIsi.setKey(snapshot.getKey());
-                                    if (kamarIsi.getId_user().equals("")) {
-                                        list2.add(kamarIsi);
-                                    } else if (!kamarIsi.getId_user().equals("")) {}
+                                    isi_reference.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (!snapshot.hasChild(kamarIsi.getKey())) {
+                                                list2.add(kamarIsi);
+                                            } else if (kamarIsi.getId_user().equals("")) {}
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
                             }
 

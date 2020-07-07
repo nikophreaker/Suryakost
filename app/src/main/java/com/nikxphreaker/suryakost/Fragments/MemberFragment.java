@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nikxphreaker.suryakost.Adapter.KamarListAdapter;
 import com.nikxphreaker.suryakost.Model.Kamar;
+import com.nikxphreaker.suryakost.Model.KamarIsi;
 import com.nikxphreaker.suryakost.Model.Pembayaran;
 import com.nikxphreaker.suryakost.Model.User;
 import com.nikxphreaker.suryakost.R;
@@ -73,6 +75,34 @@ public class MemberFragment extends Fragment {
                     Glide.with(getContext()).load(user.getImageURL()).into(profile_image);
                 }
                 progressDialog.dismiss();
+//                berhenti.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran");
+//                        pembayaran_ref.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                if (getContext() == null) {
+//                                    return;
+//                                }
+//                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                                    final Pembayaran pembayaran = snapshot.getValue(Pembayaran.class);
+//                                    pembayaran.setKey(snapshot.getKey());
+//                                        if(dataSnapshot.hasChild(user.getId())){
+//                                            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                                            final DatabaseReference myRef2 = database.getReference().child("Kamar_terisi").child(user.getId());
+//                                            myRef2.removeValue();
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//                    }
+//                });
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -80,6 +110,8 @@ public class MemberFragment extends Fragment {
             }
         });
         progressDialog.dismiss();
+
+
         return v;
     }
 }

@@ -65,6 +65,14 @@
                 android:fontFamily="@font/md"
                 android:text="@string/hint2"
                 android:textSize="24dp"/>
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Berhenti Sewa Kamar"-->
+<!--                android:id="@+id/berhenti"-->
+<!--                android:background="@color/logback"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:textColor="#fff" />-->
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
