@@ -258,6 +258,7 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         final Kamar kamar = snapshot.getValue(Kamar.class);
                         kamar.setKey(snapshot.getKey());
+                        if (kamar.getTersedia().equals("ya")){
                         list.add(kamar);
                         isi_reference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -268,9 +269,9 @@ public class HomeFragment extends Fragment {
                                     isi_reference.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if (!snapshot.hasChild(kamarIsi.getKey())) {
+                                            if (snapshot.hasChild(kamarIsi.getKey())) {
                                                 list2.add(kamarIsi);
-                                            } else if (kamarIsi.getId_user().equals("")) {}
+                                            } else if (!kamarIsi.getId_user().equals("")) {}
                                         }
 
                                         @Override
@@ -286,6 +287,9 @@ public class HomeFragment extends Fragment {
 
                             }
                         });
+                        }
+                        else if (kamar.getTersedia().equals("tidak")){
+                        }
                 }
                 kamarListAdapter = new KamarListAdapter(getContext(), list, list2);
                 sewakamar.setAdapter(kamarListAdapter);
@@ -295,47 +299,6 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
                 progressDialog.dismiss();
-            }
-        });
-    }
-
-    private void showKamar2() {
-        list = new ArrayList<>();
-        list2 = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference("Kamar");
-        isi_reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    KamarIsi kamarIsi = snapshot.getValue(KamarIsi.class);
-                    kamarIsi.setKey(snapshot.getKey());
-                    if (kamarIsi.getId_user().equals("")) {
-                        list2.add(kamarIsi);
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                list.clear();
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    final Kamar kamar = snapshot.getValue(Kamar.class);
-                                    kamar.setKey(snapshot.getKey());
-                                    list.add(kamar);
-                                }
-                                kamarListAdapter = new KamarListAdapter(getContext(), list, list2);
-                                sewakamar.setAdapter(kamarListAdapter);
-                                progressDialog.dismiss();
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                                System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-                                progressDialog.dismiss();
-                            }
-                        });
-                    } else if (!kamarIsi.getId_user().equals("")) {}
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

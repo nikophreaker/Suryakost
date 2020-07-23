@@ -238,11 +238,12 @@ public class TambahKamarActivity extends AppCompatActivity implements AdapterVie
                             String Harga = harga.getText().toString().trim();
                             String TempHarga= Harga.replaceAll("\\.", "");
                             String TempFasilitas = fasilitas.trim();
+                            String Ketersediaan = "ya";
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Data berhasil ditambahkan ", Toast.LENGTH_LONG).show();
-                            Kamar kamarUploadInfo = new Kamar(TempNomor, TempWilayah, TempFasilitas, TempLuas, TempHarga, downloadUri.toString());
+                            Kamar kamarUploadInfo = new Kamar(TempNomor, TempWilayah, TempFasilitas, TempLuas, TempHarga, downloadUri.toString(), Ketersediaan);
                             databaseReference.child(KamarUploadId).setValue(kamarUploadInfo);
-                            startActivity(new Intent(TambahKamarActivity.this, MainActivity.class));
+                            startActivity(new Intent(TambahKamarActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                     });
         }
@@ -412,13 +413,14 @@ public class TambahKamarActivity extends AppCompatActivity implements AdapterVie
                     String Harga = harga.getText().toString().trim();
                     String TempHarga= Harga.replaceAll("\\.", "");
                     String TempFasilitas = fasilitas.trim();
+                    String Ketersediaan = "ya";
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Data berhasil diupdate ", Toast.LENGTH_LONG).show();
                     @SuppressWarnings("VisibleForTests")
                     String KamarUploadId = kamar.getKey();
-                    Kamar kamarUploadInfo = new Kamar(TempNomor, TempWilayah, TempFasilitas, TempLuas, TempHarga, downloadUri.toString());
+                    Kamar kamarUploadInfo = new Kamar(TempNomor, TempWilayah, TempFasilitas, TempLuas, TempHarga, downloadUri.toString(), Ketersediaan);
                     databaseReference.child(KamarUploadId).setValue(kamarUploadInfo);
-                    startActivity(new Intent(TambahKamarActivity.this, MainActivity.class));
+                    startActivity(new Intent(TambahKamarActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
             });
         } else if (FilePathUri == null){
@@ -443,13 +445,14 @@ public class TambahKamarActivity extends AppCompatActivity implements AdapterVie
             String Harga = harga.getText().toString().trim();
             String TempHarga= Harga.replaceAll("\\.", "");
             String TempFasilitas = fasilitas.trim();
+            String Ketersediaan = "ya";
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Data berhasil diupdate ", Toast.LENGTH_LONG).show();
             @SuppressWarnings("VisibleForTests")
             String KamarUploadId = kamar.getKey();
-            Kamar kamarUploadInfo = new Kamar(TempNomor, TempWilayah, TempFasilitas, TempLuas, TempHarga, downloadUri);
+            Kamar kamarUploadInfo = new Kamar(TempNomor, TempWilayah, TempFasilitas, TempLuas, TempHarga, downloadUri, Ketersediaan);
             databaseReference.child(KamarUploadId).setValue(kamarUploadInfo);
-            startActivity(new Intent(TambahKamarActivity.this, MainActivity.class));
+            startActivity(new Intent(TambahKamarActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         else {
             Snackbar.make(findViewById(R.id.tambahkamar), "(Update)Tolong periksa kembali data dan gambar", Snackbar.LENGTH_LONG).show();

@@ -9,15 +9,17 @@ public class Kamar implements Serializable {
     private String luas;
     private String harga;
     private String gambar;
+    private String tersedia;
     private String key;
 
-    public Kamar(String nomor,String lokasi, String fasilitas, String luas, String harga, String gambar) {
+    public Kamar(String nomor,String lokasi, String fasilitas, String luas, String harga, String gambar, String tersedia) {
         this.nomor = nomor;
         this.lokasi = lokasi;
         this.fasilitas = fasilitas;
         this.luas = luas;
         this.harga = harga;
         this.gambar = gambar;
+        this.tersedia = tersedia;
     }
 
     public Kamar(){
@@ -69,6 +71,14 @@ public class Kamar implements Serializable {
 
     public void setGambar(String gambar) {
         this.gambar = gambar;
+    }
+
+    public String getTersedia() {
+        return tersedia;
+    }
+
+    public void setTersedia(String tersedia) {
+        this.tersedia = tersedia;
     }
 
     public String getKey() {

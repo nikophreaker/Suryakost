@@ -52,7 +52,7 @@ public class CekStrukActivity extends AppCompatActivity {
     Date date;
     String key_pemb,lamas,tgl_depan,id_kamar,id_users,key_kamaris,tgl;
     FirebaseUser firebaseuser;
-    DatabaseReference reference,dreference,pembayaran_ref,isi_reference;
+    DatabaseReference reference,dreference,dreference2,pembayaran_ref,isi_reference;
 
     @Override
     protected void onCreate(Bundle saveInstanceState){
@@ -110,17 +110,13 @@ public class CekStrukActivity extends AppCompatActivity {
         konfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                masukin_kekamar();
                 try {
                     konfirmasi_bayar();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                try {
-                    masukin_kekamar();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                startActivity(new Intent(CekStrukActivity.this, MainActivity.class));
+                startActivity(new Intent(CekStrukActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
         tagih.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +124,7 @@ public class CekStrukActivity extends AppCompatActivity {
             public void onClick(View v) {
                 pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran");
                 pembayaran_ref.child(key_pemb).child("status").setValue("Belum Bayar");
-                startActivity(new Intent(CekStrukActivity.this, MainActivity.class));
+                startActivity(new Intent(CekStrukActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
 
@@ -231,6 +227,7 @@ public class CekStrukActivity extends AppCompatActivity {
     public void konfirmasi_bayar() throws ParseException {
         pembayaran_ref = FirebaseDatabase.getInstance().getReference("Pembayaran");
         dreference = FirebaseDatabase.getInstance().getReference("Kamar_terisi");
+        dreference2 = FirebaseDatabase.getInstance().getReference("Kamar");
         pembayaran_ref.child(key_pemb).child("status").setValue("Sudah Bayar");
         int subtract = parseInt(lamas);
         int result = subtract - 1;
@@ -240,10 +237,30 @@ public class CekStrukActivity extends AppCompatActivity {
         cal.add(Calendar.MONTH, 1);
         String TempBulan = Long.toString(cal.getTimeInMillis());
         pembayaran_ref.child(key_pemb).child("bulan_depan").setValue(TempBulan.trim());
+        dreference2.child(id_kamar).child("tersedia").setValue("tidak");
+        isi_reference = FirebaseDatabase.getInstance().getReference("Kamar_terisi");
 //        pembayaran_ref.child(key_pemb).child("tgl_pembayaran").setValue(tgl_depan.trim());
         if(result == 0){
             final DatabaseReference myRef1 = pembayaran_ref.child(key_pemb);
             final DatabaseReference myRef2 = dreference.child(id_kamar);
+            dreference2.child(id_kamar).child("tersedia").setValue("ya");
+            isi_reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+                    for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        KamarIsi kamarIsi = dataSnapshot1.getValue(KamarIsi.class);
+                        kamarIsi.setKey(dataSnapshot1.getKey());
+                        if(kamarIsi.getId_kamar().equals(id_kamar)){
+                            isi_reference.child(kamarIsi.getKey()).removeValue();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             myRef1.removeValue();
             myRef2.removeValue();
         }
@@ -272,12 +289,11 @@ public class CekStrukActivity extends AppCompatActivity {
 //        });
     }
 
-    public void masukin_kekamar() throws ParseException {
+    public void masukin_kekamar(){
         isi_reference = FirebaseDatabase.getInstance().getReference("Kamar_terisi");
         String TempKamar = id_kamar.trim();
         String TempUser = id_users.trim();
         String TempPemb = key_pemb.trim();
-
 //        Calendar cal = Calendar.getInstance();
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 //        cal.setTime(formatter.parse(tgls.getText().toString()));
