@@ -138,7 +138,7 @@ public class ProfileFragment extends Fragment {
 
                 if (installed){
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+"+6285891225823"+"&text=Permisi admin"));
+                    intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+"+6212345678"+"&text=Permisi admin"));
                     startActivity(intent);
                 }else {
                     Toast.makeText(getActivity(), "WhatsApp belum ter-install di perangkat anda",Toast.LENGTH_SHORT).show();
